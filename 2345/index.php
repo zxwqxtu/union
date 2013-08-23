@@ -24,15 +24,15 @@ $referers = array(
 //    'http://www.2345.com/?k68847190' //wq@baisonmail.com 
 );
 
+$ipCookie = array();
+
 $n = 0;
 $maxNumber = mt_rand(20, 50);
 while($n++ < $maxNumber) {
     foreach ($referers as $referer) {
-        $ip = getIp();
-        $cookie = getCookie(); 
-
-        $ipCookieStr = date('Y-m-d')."\t{$ip}\t{$cookie}".PHP_EOL;
-        error_log($ipCookieStr, 3, dirname(__FILE__).'/IPCookie.log');
+        $ipCookieArr = getIpCookie(); 
+        $ip = $ipCookieArr[0];
+        $cookie = $ipCookieArr[1];
 
         $maxNum = mt_rand(2, 8);
         for($num=0;$num<$maxNum;$num++) {
@@ -41,6 +41,33 @@ while($n++ < $maxNumber) {
             unionOk($ip, $cookie, $los, $fileLogs, $referer);
         }
     }
+}
+
+function getIpCookie() {
+    if (empty($GLOBALS['ipCookie'])) {
+        $fp = fopen(__DIR__.'/IPCookie.log', 'rb');
+        while(!feof($fp)) {
+            $str = trim(fgets($fp));
+            if (empty($str)) continue;
+            $arr = explode("\t", $str);
+            $GLOBALS['ipCookie'][$arr[0]][$arr[1]] = $arr[2];
+        }
+        fclose($fp);
+    }
+
+    $randomIpCookie = $GLOBALS['ipCookie'][array_rand($GLOBALS['ipCookie'])];
+    $randomIp = array_rand($randomIpCookie);
+    $randomIpCookie = array($randomIp => $randomIpCookie[$randomIp]);   
+
+    $ipCookieArr = array(array(getIp()=>getCookie()), $randomIpCookie);         
+    $_ipCookie = $ipCookieArr[mt_rand(0,1)];  
+
+    foreach ($_ipCookie as $ip=>$cookie);
+
+    $ipCookieStr = date('Y-m-d')."\t{$ip}\t{$cookie}".PHP_EOL;
+    error_log($ipCookieStr, 3, dirname(__FILE__).'/IPCookie.log');
+
+    return [$ip, $cookie] ;
 }
 
 function getRandLos($htmlUrls) {
