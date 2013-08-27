@@ -1,1 +1,2 @@
 0 12 * * * php /www/web/union/2345/index.php
+0 10 * * * php /www/web/union/jifen/index.php

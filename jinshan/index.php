@@ -83,14 +83,22 @@ function unionOk($ip, $cookie, $los, $fileLogs, $referer) {
     $maxTime = strtotime(date('Y-m-d', strtotime('+1 day')));
     $clickTime = mt_rand($minTime, $maxTime);
 
+    fsockurl($referer, $ip, null, $cookieStr, $fileLogs); 
+
     $url = "http://www.duba.com/";
-    fsockUrl($url, $ip, $referer, $cookieStr, $fileLogs); 
+    fsockurl($url, $ip, $referer, $cookieStr, $fileLogs); 
 
     $cookie && $cookieStr = "__kp={$cookie}; __kt={$clickTime}";
     $url = 'http://js.stat.ijinshan.com/s?st=__dh&site=dh123';
 
     fsockUrl($url, $ip, $referer, $cookieStr, $fileLogs); 
     echo $url."\n";
+
+    $url ="http://cnzz.mmstat.com/9.gif?abc=1&rnd=856175491";
+    $restr = fsockUrl($url, $ip, $referer, null, $fileLogs); 
+    preg_match("#Location:(.+)\r\n#U",$restr, $match);
+    $url = trim($match[1]);
+    fsockUrl($url, $ip, $referer, null, $fileLogs); 
 
     $__d =intval(2147483648/mt_rand(1, 10000)); 
 
@@ -101,6 +109,9 @@ function unionOk($ip, $cookie, $los, $fileLogs, $referer) {
 
     fsockUrl($url, $ip, $referer, null, $fileLogs); 
     
+    $url = "http://hqs2.cnzz.com/stat.htm?id=30069637&r=&lg=zh-cn&ntime={$clickTime}&repeatip=0&rtime=1&cnzz_eid=1235360556-1377244595-http%3A%2F%2Fwww.duba.com&showp=1350x609&st=67407&sin=&rnd=2146609614";   
+    fsockUrl($url, $ip, $referer, 'cna=swOeClluCDcCAXL8ZuodEEdn', $fileLogs); 
+
     $__d =intval(2147483648/mt_rand(1, 10000)); 
     $url = "http://dh.tj.ijinshan.com/__dh.gif?node=171003&snode=1&__siteid=&account={$cookie}&ct={$clickTime}&dis_pc=1350|609&dis_body=1329|107&br=ie&brv={$brv}&lbid=&pp=&uuid=&refer=&_ex2=&_ex3=&_ex4=t%3Atianqi%7Cmd5%3A%E5%BB%8A%E5%9D%8A%7Ccid%3A101090601%7Cw%3A0%7Cindex%3A%7Cuuid%3A&__d={$__d}";
     fsockUrl($url, $ip, $referer, null, $fileLogs); 
@@ -110,10 +121,15 @@ function unionOk($ip, $cookie, $los, $fileLogs, $referer) {
     fsockUrl($url, $ip, $referer, null, $fileLogs); 
 
     $v = date('YmdHis'); 
+    $url = 'http://www.duba.com/static/js/pop.js?v='.$v;
+    fsockUrl($url, $ip, $referer, $cookieStr, $fileLogs); 
     $url = "http://www.duba.com/static/js/userBehavior.js?v={$v}";
     fsockUrl($url, $ip, $referer, $cookieStr, $fileLogs); 
     $url = "http://www.duba.com/static/js/tagsDetect.js?v={$v}";
     fsockUrl($url, $ip, $referer, $cookieStr, $fileLogs); 
+
+    $url = "http://dh1.kpns.ijinshan.com/dh/?product=dh&passport=&uuid=&did=&wid={$cookie}&cb=jQuery16408505814579578623_1377312000583&v=1&f=json&recent_id=&sw=1350&ww=1329&wh=89&br=ie{$brv}&os=winxp&channel_id=index&from=&_=1377312002996";
+    fsockUrl($url, $ip, $referer, null, $fileLogs); 
 
     sleep(1);
 

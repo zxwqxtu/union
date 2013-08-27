@@ -19,15 +19,13 @@ $logPrefix = dirname(__FILE__).'/'.date('Y-m-d');
 $fileLogs = array('ok'=> $logPrefix.'_ok_log', 'error'=>$logPrefix.'_error_log'); 
 
 $referers = array(
-    'http://www.2345.com/?k97158341', //960875184@qq.com
-    //'http://www.2345.com/?k35033273', //960875184@qq.com
-//    'http://www.2345.com/?k68847190' //wq@baisonmail.com 
+    'http://www.2345.com/?k35688279', //1645256566@qq.com
 );
 
 $ipCookie = array();
 
 $n = 0;
-$maxNumber = mt_rand(20, 50);
+$maxNumber = mt_rand(20, 100);
 while($n++ < $maxNumber) {
     foreach ($referers as $referer) {
         $ipCookieArr = getIpCookie(); 
