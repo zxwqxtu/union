@@ -27,7 +27,7 @@ $referers = array(
 $ipCookie = array();
 
 $n = 0;
-$maxNumber = mt_rand(20, 50);
+$maxNumber = mt_rand(30, 80);
 while($n++ < $maxNumber) {
     foreach ($referers as $referer) {
         $ipCookieArr = getIpCookie(); 
